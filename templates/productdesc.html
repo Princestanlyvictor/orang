@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/productdesc.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!--Latest compiled and minified JavaScript-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Navbar in Bootstrap</title>
+</head>
+<style>
+a{
+text-decoration: none;
+}
+.highlights table tr,td{
+height: 90px;
+text-align: left;
+color: black;
+
+font-size:20px;
+}
+
+.highlights table tr{
+
+height: 200px;
+
+}
+.not{margin-left: 10px;font-weight: 900;}
+
+</style>
+<body>
+
+<div class="container-fluid">
+ <div class="row">
+   <!-- Product picture -->
+   <div class="col-sm-5">
+     <div class="thumbnail" style="height:650px;width:100%" >
+       <img src="{{product.product_image.url}}" class="img-responsive" alt="" style="margin:20% auto; height:500px;width:500px">
+
+       <div class="caption">
+         <div class="row buttons" >
+
+          <a href="{% url 'checkout' user.id %}"><button class="btn  col-sm-4 col-sm-offset-2 btn-lg" style="background-color:#ff9f00; color:#fff;font-size:1em; margin:0px 0 auto 35%;  "><span class="glyphicon glyphicon-shopping-cart"></span>Buynow</button></a>
+           </div>
+
+
+
+       </div>
+     </div>
+
+     </div>
+
+   <!-- Product Description -->
+   <div class="col-sm-7 desc">
+
+     <div>
+
+       <div class="row">
+
+       <div><h1>{{product.name}}</h1> <p>({{product.quantity}})</p></div>
+       <div id="highlights">
+<br><br>
+         <table style="width:100%;height:auto;text-align:left; margin-top:20px">
+           <tr style="height:30px"><td style="width:50%"><div class="not">Product Name:</div></td><td>{{product.name}}</td></tr>
+           <tr style="height:30px"><td style="width:40%"><div class="not">M.R.P</div></td><td>{{product.price}}</td></tr>
+           <tr style="height:30px"><td style="width:40%"><div class="not">Price</div></td><td>{{product.discount}}</td></tr>
+
+
+           <tr style="height:30px"><td style="width:40%"><div class="not">Item Weight:</div></td><td>{{product.itemweight}}</td></tr>
+           <tr style="height:30px"><td style="width:40%"><div class="not">Brand Name:</div></td><td>{{product.brandname}}</td></tr>
+           <tr style="height:30px"><td style="width:40%"><div class="not">About this item</div></td><td>{{product.about}}</td></tr>
+           <tr style="height:30px"><td style="width:40%"><div class="not">Quantity</div></td><td>{{product.quantity}}</td></tr>
+              </td></tr>
+
+
+         </table>
+
+
+
+       </div>
+
+     </div>
+     <br><br>
+
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
+{% endblock %}

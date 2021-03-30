@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/productpage.css' %}">
+<style>
+    .discount
+    {
+      width:200px;
+      overflow:hidden;
+      text-overflow:initial;
+      white-space:nowrap;
+    }
+</style>
+{% if not user.username %}
+      <h2>Login Free for Shopping</h2>
+    {% endif %}
+
+<div class="search">
+    <form class="search-form" method="POST" action = "{% url 'cleaning_page' %}">
+        {% csrf_token %}
+      <input type="text" placeholder="Search......", name="keyword">
+      <input type="submit" value="Search">
+    </form>
+</div>
+{% if  not p %}
+<h1 style="text-align: center; top:10px;">Cleaning Product</h1>
+
+    <div class="contenedorCards">
+      {% for item in product_cleaning %}
+         <a href="{% url 'product_detail' item.id  %}">
+          <div class="card">
+            <div class="wrapper">
+                <div class="imgProd" ><img src="{{item.product_image.url}}"></div>
+                <div class="infoProd">
+                  <p class="nombreProd">{{item.name}}</p>
+                  <p class="extraInfo">{{item.quantity}}</p>
+                  <div class="actions">
+                    <div class="preciosGrupo">
+                      {% if item.discount %}
+                        <p class="precio precioOferta">₹{{item.price}}</p>
+                        <p class="precio precioProd">₹{{item.discount}}</p>
+                      {% else %}
+                        <p class="precio precioProd">₹{{item.price}}</p>
+                      {% endif %}
+                    </div>
+                    {% if item.discount %}
+                      <div class="icono action aFavs">
+                        <div class="discount">%{{item.discount|div:item.price |mul:100 |sub:100}}</div>
+
+                      </div>
+                    {% endif %}
+                    <div class="icono action alCarrito">
+                    {% if user.username %}
+                      <a href="{% url 'add_to_cart' user.id item.id %}"><button><i class="fa fa-shopping-cart" style="font-size:24px"></i></button></a>
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </a>
+{% endif %}
+
+</body>
+</html>
+{% endblock %}

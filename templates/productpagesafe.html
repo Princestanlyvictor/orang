@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/productpage.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <style>
+    .discount
+    {
+      width:200px;
+      overflow:hidden;
+      text-overflow:initial;
+      white-space:nowrap;
+    }
+  </style>
+  <body>
+
+    <div class="search">
+      <form class="search-form" method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+        <input type="text" placeholder="Search......" name = 'keyword'>
+        <input type="submit" value="Search">
+      </form>
+    </div>
+
+    <div class="image-box">
+      <img src="{% static 'images/pink.png' %}" width="" height="" >
+  </div>
+
+    {% if not user.username %}
+      <h2>Login Free for Shopping</h2>
+    {% endif %}
+    {% if  not p %}
+    <div class="subhead">
+      <h1 style="text-align: left;">Special Offer on Pantry</h1>
+    </div>
+          <div class="contenedorCards">
+            {% for item in top_10_product_pantry%}
+              <a href="">
+                <div class="card">
+                  <div class="wrapper">
+                      <div class="imgProd" ><img src="{{item.product_image.url}}"></div>
+                      <div class="infoProd">
+                        <p class="nombreProd">{{item.name}}</p>
+                        <p class="extraInfo">{{item.quantity}}</p>
+                        <div class="actions">
+                          <div class="preciosGrupo">
+                            {% if item.discount %}
+                              <p class="precio precioOferta">₹{{item.price}}</p>
+                              <p class="precio precioProd">₹{{item.discount}}</p>
+                            {% else %}
+                              <p class="precio precioProd">₹{{item.price}}</p>
+                            {% endif %}
+                          </div>
+                          {% if item.discount %}
+                            <div class="icono action aFavs">
+                              <div class="discount">%{{item.discount|div:item.price |mul:100 |sub:100}}</div>
+
+                            </div>
+                          {% endif %}
+                          <div class="icono action alCarrito">
+                          {% if user.username %}
+                            <a href="{% url 'add_to_cart' user.id item.id %}"><button><i class="fa fa-shopping-cart" style="font-size:24px"></i></button></a>
+                          {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </a>
+            {% endfor %}
+          </div>
+        </a>
+      {% endif %}
+
+        <hr>
+
+        <div class="flex-container">
+          <div><a href="{% url 'oil_page' %}">Cooking Essential</a></div>
+          <div><a href="{% url 'oil_page' %}">Packed Food</a></div>
+          <div><a href="{% url 'oil_page' %}">Beverges</a></div>
+          <div><a href="{% url 'oil_page' %}">Cleaning Product</a></div>
+          <div><a href="{% url 'oil_page' %}">Personal Care</a></div>
+
+
+        </div>
+
+        <h1 style="text-align: left;">Vegtable</h1>
+        <a href="">
+          <div class="contenedorCards">
+            {% for item in top_10_product_veg_frut%}
+              <div class="card">
+                <div class="wrapper">
+                    <div class="imgProd" ><img src="{{item.product_image.url}}"></div>
+                    <div class="infoProd">
+                      <p class="nombreProd">{{item.name}}</p>
+                      <p class="extraInfo">{{item.quantity}}</p>
+                      <div class="actions">
+                        <div class="preciosGrupo">
+                          {% if item.discount %}
+                            <p class="precio precioOferta">₹{{item.price}}</p>
+                            <p class="precio precioProd">₹{{item.discount}}</p>
+                          {% else %}
+                            <p class="precio precioProd">₹{{item.price}}</p>
+                          {% endif %}
+                        </div>
+                        {% if item.discount %}
+                          <div class="icono action aFavs">
+                            <div class="discount">%{{item.discount|div:item.price |mul:100 |sub:100}}</div>
+
+                          </div>
+                        {% endif %}
+                        <div class="icono action alCarrito">
+                          {% if user.username %}
+                            <a href="{% url 'add_to_cart' user.id item.id %}"><button><i class="fa fa-shopping-cart" style="font-size:24px"></i></button></a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </a>
+        <div class="flex-container">
+          <div><a href="{% url 'oil_page' %}">Cooking Essential</a></div>
+          <div><a href="{% url 'oil_page' %}">Packed Food</a></div>
+          <div><a href="{% url 'oil_page' %}">Beverges</a></div>
+          <div><a href="{% url 'oil_page' %}">Cleaning Product</a></div>
+          <div><a href="{% url 'oil_page' %}">Personal Care</a></div>
+
+
+        </div>
+
+
+        <h1 style="text-align: left;">Stationery Item</h1>
+        <a href="">
+          <div class="contenedorCards">
+            {% for item in top_10_product_stationery%}
+              <div class="card">
+                <div class="wrapper">
+                    <div class="imgProd" ><img src="{{item.product_image.url}}"></div>
+                    <div class="infoProd">
+                      <p class="nombreProd">{{item.name}}</p>
+                      <p class="extraInfo">{{item.quantity}}</p>
+                      <div class="actions">
+                        <div class="preciosGrupo">
+                          {% if item.discount %}
+                            <p class="precio precioOferta">₹{{item.price}}</p>
+                            <p class="precio precioProd">₹{{item.discount}}</p>
+                          {% else %}
+                            <p class="precio precioProd">₹{{item.price}}</p>
+                          {% endif %}
+                        </div>
+                        {% if item.discount %}
+                          <div class="icono action aFavs">
+                            <div class="discount">%{{item.discount|div:item.price |mul:100 |sub:100}}</div>
+
+                          </div>
+                        {% endif %}
+                        <div class="icono action alCarrito">
+                          {% if user.username %}
+                            <a href="{% url 'add_to_cart' user.id item.id %}"><button><i class="fa fa-shopping-cart" style="font-size:24px"></i></button></a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </a>
+        <div class="flex-container">
+          <div><a href="{% url 'oil_page' %}">Oil</a></div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+
+
+        </div>
+
+
+
+
+    </body>
+</html>
+
+{% endblock %}

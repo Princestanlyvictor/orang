@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/productpage.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+
+
+
+  </head>
+
+  <style>
+    .discount
+    {
+      width:200px;
+      overflow:hidden;
+      text-overflow:initial;
+      white-space:nowrap;
+    }
+  </style>
+  <body>
+
+    <div class="image-box">
+      <img src="{% static 'images/pink.png' %}" width="" height="" >
+  </div>
+
+    {% if not user.username %}
+      <h2>Login Free for Shopping</h2>
+    {% endif %}
+    {% if  not p %}
+
+      {% endif %}
+
+        <hr>
+
+        <div class="head">
+          <h3>CATEGORY</h3>
+        </div>
+        <div class="workwithus">
+          <div class="container1">
+
+              <div class="box1">
+                <a href="{% url 'beverges_page' %}">
+                  <div class="content1">
+                      <img src="{% static 'images\biscuit_PNG87.png' %}">
+                      <p>BEVERAGES</p>
+                  </div>
+                </a>
+              </div>
+
+
+            <div class="box1">
+
+              <a href="{% url 'packagedfood_page' %}">
+                  <div class="content1">
+                      <img src="{% static 'images\packagedfood.png' %}">
+                          <p>PACKAGED FOOD</p>
+                  </div>
+                </a>
+              </div>
+
+
+                <div class="box1">
+                  <a href="{% url 'cleaning_page' %}">
+                  <div class="content1">
+                      <img src="{% static 'images\cleaning.png' %}">
+                      <p>CLEANING PRODUCT</p>
+                  </a>
+                  </div>
+              </div>
+
+            </a>
+
+                <div class="box1">
+                  <a href="{% url 'house_page' %}">
+                  <div class="content1">
+                      <img src="{% static 'images\houseware.png' %}">
+                      <p>HOUSEWARE</p>
+                  </div>
+                </a>
+              </div>
+
+
+                <div class="box1">
+                  <a href="{% url 'school_page' %}">
+                  <div class="content1">
+                      <img src="{% static 'images\school.png' %}">
+                      <p>SCHOOL ITEMS</p>
+                  </div>
+                </a>
+              </div>
+
+
+              <div class="box1">
+                <a href="{% url 'fruit_page' %}">
+                  <div class="content1">
+                      <img src="{% static 'images\fruit.png' %}">
+                      <p>FRUITS</p>
+                  </div>
+                </a>
+              </div>
+
+
+               <div class="box1">
+                <a href="{% url 'spices_page' %}">
+                <div class="content1">
+                    <img src="{% static 'images\gram.png' %}">
+                    <p>Spices & Masalas</p>
+                </div>
+              </a>
+            </div>
+
+
+              <div class="box1">
+                <a href="{% url 'personalcare_page' %}">
+              <div class="content1">
+                  <img src="{% static 'images\dovepro.png' %}">
+                  <p>PERSONAL CARE</p>
+              </div>
+            </a>
+          </div>
+
+
+           <div class="box1">
+            <a href="{% url 'cookingessential_page' %}">
+
+              <div class="content1">
+                  <img src="{% static 'images\cookinges.png' %}">
+                  <p>COOKING ESSENTIAL</p>
+              </div>
+            </a>
+          </div>
+
+
+            <div class="box1">
+              <a href="{% url 'toy_page' %}">
+            <div class="content1">
+                <img src="{% static 'images\toy.png' %}">
+                <p>TOYS</p>
+            </div>
+          </a>
+        </div>
+
+
+          </div>
+        </div>
+        <h1 style="text-align: center;">Top Offer</h1>
+
+            <div class="contenedorCards">
+
+              {% for item in top_10_product_topoffer%}
+                {% if user.username %}
+               <a href="{% url 'product_detail' item.id  %}">
+                {% endif %}
+                <div class="card">
+                  <div class="wrapper">
+                      <div class="imgProd" ><img src="{{item.product_image.url}}"></div>
+                      <div class="infoProd">
+                        <p class="nombreProd">{{item.name}}</p>
+                        <p class="extraInfo">{{item.quantity}}</p>
+                        <div class="actions">
+                          <div class="preciosGrupo">
+                            {% if item.discount %}
+                              <p class="precio precioOferta">₹{{item.price}}</p>
+                              <p class="precio precioProd">₹{{item.discount}}</p>
+                            {% else %}
+                              <p class="precio precioProd">₹{{item.price}}</p>
+                            {% endif %}
+                          </div>
+                          {% if item.discount %}
+                            <div class="icono action aFavs">
+                              <div class="discount">%{{item.discount|div:item.price |mul:100 |sub:100}}</div>
+
+                            </div>
+                          {% endif %}
+                          <div class="icono action alCarrito">
+                            {% if user.username %}
+                              <a href="{% url 'add_to_cart' user.id item.id %}"><button><i class="fa fa-shopping-cart" style="font-size:24px"></i></button></a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+                {% endfor %}
+            </div>
+          </a>
+
+
+<br><br>
+
+
+        <h1 style="text-align: center; top:10px;">Today's Deal</h1>
+
+        <div class="contenedorCards">
+          {% for item in top_10_product_todaydeal%}
+             <a href="{% url 'product_detail' item.id  %}">
+              <div class="card">
+                <div class="wrapper">
+                    <div class="imgProd" ><img src="{{item.product_image.url}}"></div>
+                    <div class="infoProd">
+                      <p class="nombreProd">{{item.name}}</p>
+                      <p class="extraInfo">{{item.quantity}}</p>
+                      <div class="actions">
+                        <div class="preciosGrupo">
+                          {% if item.discount %}
+                            <p class="precio precioOferta">₹{{item.price}}</p>
+                            <p class="precio precioProd">₹{{item.discount}}</p>
+                          {% else %}
+                            <p class="precio precioProd">₹{{item.price}}</p>
+                          {% endif %}
+                        </div>
+                        {% if item.discount %}
+                          <div class="icono action aFavs">
+                            <div class="discount">%{{item.discount|div:item.price |mul:100 |sub:100}}</div>
+
+                          </div>
+                        {% endif %}
+                        <div class="icono action alCarrito">
+                        {% if user.username %}
+                          <a href="{% url 'add_to_cart' user.id item.id %}"><button><i class="fa fa-shopping-cart" style="font-size:24px"></i></button></a>
+                        {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </a>
+      <div class="flex-container">
+        <div><a href="{% url 'cookingessential_page' %}">Cooking Essential</a></div>
+        <div><a href="{% url 'packagedfood_page' %}">Packed Food</a></div>
+        <div><a href="{% url 'beverges_page' %}">Beverges</a></div>
+        <div><a href="{% url 'cleaning_page' %}">Cleaning Product</a></div>
+        <div><a href="{% url 'personalcare_page' %}">Personal Care</a></div>
+
+
+      </div>
+
+
+
+    </body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/mycart.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+<style>
+  h1, h5{
+    color: black;
+  }
+</style>
+<body>
+{% if not user_cart %}
+  <h1>Hi, user your cart is empty!</h1>
+{% endif %}
+<div class="contenedorCards">
+
+
+    <div class="card">
+
+        <table>
+          {% for item in user_cart %}
+          <form action="{% url 'mycart' user.id %}" method="POST">
+            {% csrf_token %}
+              <tbody>
+
+            <tr>
+              <td data-label="Account"><h1>{{item.product.name}}</h1></td>
+
+              <td data-label="Account-number"><input type="number" name = 'num' id = 'search' min = 1 max = 10 value={{item.quantity}}></td>
+              <input type="hidden" i name="id" value="{{item.id}}">
+              <td data-label="Account">
+              {% if item.product.discount %}
+                <h5>Total = {{item.quantity}} x {{item.product.discount}} = {{ item.quantity|mul:item.product.discount }}</h5>
+              {% else %}
+                <h5>Total = {{item.quantity}} x {{item.product.price}} = {{ item.quantity|mul:item.product.price }}</h5>
+              {% endif %}</td>
+
+              <td data-label="Account" class="check"><input type="submit" value="Get Total Amount"></td>
+              </form>
+              <td data-label="Account"><a href="{% url 'del_cart' item.id %}"><button>Delete</button></a></td>
+
+            </tr>
+
+          </tbody>
+          {% endfor %}
+</table>
+
+<div class="Totalprice">
+{% if total %}
+  <h1>Total Amount:</h1>
+  <h1>Rs.{{total}}</h1>
+
+
+{% endif %}
+</div>
+<div class="checkout">
+{% if user_cart %}
+  <a href="{% url 'checkout' user.id %}"><button>Check Out</button></a>
+{% endif %}
+</div>
+</div>
+</body>
+</html>
+{% endblock %}

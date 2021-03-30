@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static 'css/base.css' %}" rel="stylesheet">
+        <link href="{% static 'css/account.css' %}" rel="stylesheet">
+    </head>
+    <body>
+            <table>
+              <caption>Profile</caption>
+
+              <tbody>
+                <tr>
+                  <td data-label="Account">Name:</td>
+                  <td data-label="Due Date">{{detail.user}}</td>
+
+                </tr>
+                <tr>
+                  <td scope="row" data-label="Account">Number:</td>
+                  <td data-label="Due Date">{{detail.mobile_number}}</td>
+
+                </tr>
+                <tr>
+                  <td scope="row" data-label="">Email:</td>
+                  <td data-label="">{{detail.user.email}}</td>
+
+                </tr>
+                <tr>
+                  <td scope="row" data-label="">Address:</td>
+                  <td data-label=""><p>{{detail.address}}</p></td>
+
+                </tr>
+
+              </tbody>
+
+</table>
+</div>
+<div class="account_link">
+  <a href="{% url 'update' user.id %}"><button class="account_button">Edit Profile</button></a></br>
+</div>
+
+
+    </body>
+</html>
+{% endblock content %}

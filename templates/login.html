@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% load static %}
+{% load mathfilters %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/login.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+<body>
+    <div class="login-page">
+        <div class="form">
+          {% for i in messages %}
+            {{i}}
+          {% endfor %}
+          <form class="login-form" method="POST" action="{% url 'login_page' %}">
+            {% csrf_token %}
+            <input type="text" placeholder="username" name="username"/>
+            <input type="password" placeholder="password" name="password"/>
+            <input type= 'submit' name="Login" id="">
+            <p class="message"><h3>Not registered?<a href="{% url 'signin_Page' %}">Create an account </a></p></h3>
+          </form>
+        </div>
+      </div>
+</body>
+</html>
+{% endblock %}
