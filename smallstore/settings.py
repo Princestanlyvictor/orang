@@ -27,7 +27,7 @@ SECRET_KEY = 'tg^4lyn*jt_tzrq7c7+4yvt+&@9!_zq55b_-*t02*i=y1yuy_6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["princestanlyvictor-orang.zeet.app"]
 
 
 # Application definition
